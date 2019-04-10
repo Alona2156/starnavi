@@ -3,4 +3,6 @@
 var compression = require("compression");
 app.use(compression());
 
-2. 
+2. Preconnect to third-party origins
+
+<link rel="preconnect" href="https://img01-olxua.akamaized.net">
