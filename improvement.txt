@@ -1,0 +1,6 @@
+1. Gzipping text files
+
+var compression = require("compression");
+app.use(compression());
+
+2. 
