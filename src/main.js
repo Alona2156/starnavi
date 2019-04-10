@@ -5,8 +5,6 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import VueRouter from 'vue-router';
 import layoutOne from './components/pages/layoutOne.vue';
-import layoutTwo from './components/pages/layoutTwo.vue';
-import layoutThree from './components/pages/layoutThree.vue';
 
 Vue.use(Vuetify);
 Vue.use(VueRouter);
@@ -15,9 +13,9 @@ const routes = [
   {path: '/',
    component: layoutOne},
   {path: '/custom',
-   component: layoutTwo},
+   component: () => import('./components/pages/layoutTwo.vue')},
   {path: '/nested',
-   component: layoutThree}
+   component: () => import('./components/pages/layoutThree.vue')}
 ];
 
 const router = new VueRouter({

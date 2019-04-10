@@ -6,3 +6,15 @@ app.use(compression());
 2. Preconnect to third-party origins
 
 <link rel="preconnect" href="https://img01-olxua.akamaized.net">
+
+3. Split code for each route into different chunks
+
+- npm i babel-plugin-syntax-dynamic-import         => in package.json
+- "plugins": ["syntax-dynamic-import"]             => in .babelrc
+- Dynamic import in routes
+{path: '/custom',
+ component: () => import('./components/pages/layoutTwo.vue')}
+ - Result:
+ bundle.js + chunk for each route
+ each chunk is loaded only when going to that route
+ 
