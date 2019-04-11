@@ -1,3 +1,12 @@
+Stats:
+
+bundle.js size
+W/o gzip =
+W gzip =
+
+W/o dynamic import =
+W dynamic import = 
+
 1. Gzipping text files
 
 var compression = require("compression");
@@ -17,4 +26,3 @@ app.use(compression());
  - Result:
  bundle.js + chunk for each route
  each chunk is loaded only when going to that route
- 
