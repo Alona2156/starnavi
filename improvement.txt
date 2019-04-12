@@ -1,11 +1,11 @@
 Stats:
 
 bundle.js size
-W/o gzip =
-W gzip =
+W/o gzip = 876KB
+W gzip = 186KB
 
-W/o dynamic import =
-W dynamic import = 
+W/o dynamic import = no diff
+W dynamic import = no diff
 
 1. Gzipping text files
 
@@ -26,3 +26,33 @@ app.use(compression());
  - Result:
  bundle.js + chunk for each route
  each chunk is loaded only when going to that route
+
+4. Split shared dependencies
+new webpack.optimize.CommonsChunkPlugin({
+    name: 'common',
+    filename: 'commons.js'
+})
+
+5. Extract css
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+plugins: [
+new ExtractTextPlugin("style.css")
+]
+
+module: {
+  rules: [
+    {
+    test: /\.vue$/,
+    loader: 'vue-loader',
+    options: {
+      extractCSS: true
+     }
+    }
+  ]
+}
+
+6. SourceMaps
+Comment module.exports.devtool = "" in
+if (process.env.NODE_ENV === 'production')
+section
