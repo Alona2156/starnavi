@@ -56,3 +56,10 @@ module: {
 Comment module.exports.devtool = "" in
 if (process.env.NODE_ENV === 'production')
 section
+
+7. If commit saved in detached state:
+git reflog        => copy commit sha
+checkout existing branch
+git cherry-pick commit_sha    => imports commit into existing branch
+
+8. 
