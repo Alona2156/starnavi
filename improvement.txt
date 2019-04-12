@@ -62,4 +62,10 @@ git reflog        => copy commit sha
 checkout existing branch
 git cherry-pick commit_sha    => imports commit into existing branch
 
-8. 
+8. Git pull vs git rebase
+git pull origin master        => creates merging commit
+git pull --rebase origin master  => merges branch into local naster w/o commit
+next step is to merge fresh master into current branch:
+git merge master              => this creates merging commit
+git rebase master             => this merges master into our branch w/o creating merging commit
+git cherry -v master             => how many commits ahead of master in separate branch
