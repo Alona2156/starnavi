@@ -69,3 +69,20 @@ next step is to merge fresh master into current branch:
 git merge master              => this creates merging commit
 git rebase master             => this merges master into our branch w/o creating merging commit
 git cherry -v master             => how many commits ahead of master in separate branch
+
+9. Media queries
+Extract media css into separate css files
+
+maxh669-minw640.css
+#main_container {
+  background-color: red;
+}
+
+Add links to index.html
+
+<link rel="stylesheet" media="all" href="stylesheets/main.css">
+  <link rel="stylesheet" media="screen and (max-height: 669px), (max-width: 640px)" href="stylesheets/maxh669-minw640.css">
+  <link rel="stylesheet" media="screen and (min-width: 641px) and (max-width: 799px) and (min-height: 670px)" href="stylesheets/minw641-maxw799-minh670.css">
+  <link rel="stylesheet" media="screen and (min-width: 800px) and (min-height: 670px)" href="stylesheets/minw800-minh670.css">
+
+Browser will download unneeded media css files with low priority
