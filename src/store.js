@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 const axios = require('axios');
 
-const baseUrl = "http://demo4452328.mockable.io/properties";
+const baseUrl = "//demo4452328.mockable.io/properties";
 
 Vue.use(Vuex);
 

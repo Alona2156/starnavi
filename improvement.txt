@@ -86,3 +86,65 @@ Add links to index.html
   <link rel="stylesheet" media="screen and (min-width: 800px) and (min-height: 670px)" href="stylesheets/minw800-minh670.css">
 
 Browser will download unneeded media css files with low priority
+
+10. Network tab - right-click to add Protocol and Priority
+
+h2 = http2
+
+Http2 advantages:
+Multiplexing:
+multiple requests per TCP connection = browser requests all assets in paralel
+Server push:
+server pushes assets to browser before it requests them (css, js, images) which reduces number of requests and speeds up page load
+Stream priority:
+Browser can request html to render it before applying css and js
+Header compression. => npm Hpack.js
+
+HTTPS doesn't mean content is served over HTTP 2
+HTTP 2 requires HTTPS, otherwise will not be served
+
+= * =
+NOT WORKING IN EXPRESS APP
+Enabling http2 on express:
+  const http2 = require('http2');
+  const options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  };
+
+  const server = http2.createSecureServer(options, (req, res) => {
+     res.end('Hello World!');
+  });
+  server.listen(3000);
+  = * =
+
+  Enabling https server:
+  var https = require('https');
+  const options = {
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  }
+  var server = https.createServer(options, app);
+
+Self-assign SSL certificate
+1. type openssl in shell to check if it's installed
+2. openssl req -nodes -new -x509 -keyout server.key -out server.cert
+3. Common Name: localhost
+4. It generates 2 files:
+server.cert & server.key
+
+Content reachable at https://localhost:3000
+Third-party content cannot be handed over http, only https
+To allow browser decide protocol => const baseUrl = "//demo4452328.mockable.io/properties";
+
+http1
+24 requests
+1.4mb transferred
+finish 1.48s
+DOMContentLoaded 487ms
+Load 532 ms
+
+Http2
+
+
+Cache-control

@@ -1,14 +1,36 @@
 var app = require('../app');
 var debug = require('debug')('express-generator-handlebars:server');
-var http = require('http');
+//var http = require('http');
+
+/* */
+var fs = require("fs");
+var http2 = require('http2');
+const options = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}
+
+/* */
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
+var server = http2.createSecureServer(options, app);
 
 server.listen(port);
 server.on('error', onError);
+
+server.on('stream', (stream, headers) => {
+  console.log('strem');
+  // stream is a Duplex
+  stream.respond({
+    'content-type': 'text/html',
+    ':status': 200
+  });
+  stream.end('<h1>Hello World</h1>');
+});
+
 server.on('listening', onListening);
 
 function normalizePort(val) {
