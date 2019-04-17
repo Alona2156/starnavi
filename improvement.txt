@@ -33,6 +33,20 @@ new webpack.optimize.CommonsChunkPlugin({
     filename: 'commons.js'
 })
 
+4. Webpack 4 => splitChunksPlugin
+optimization: {
+  splitChunks: {
+    cacheGroups: {
+      vendor: {
+        chunks: 'initial',
+        name: 'vendor',
+        test: /\/node_modules\//,
+        enforce: true
+      }
+    }
+  }
+}
+
 5. Extract css
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -71,6 +85,13 @@ rules: [{
     ]
 
 Produces separate css file for every page, main and dynamically imported, separate style for vendor css
+
+5.2 Minify css
+const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
+
+plugins: [
+new OptimizeCSSPlugin()
+]
 
 6. SourceMaps
 Comment module.exports.devtool = "" in

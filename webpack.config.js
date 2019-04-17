@@ -4,6 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
@@ -74,7 +75,8 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
       filename: '[name].css'
-    })
+    }),
+    new OptimizeCSSPlugin()
   ],
   resolve: {
     alias: {
