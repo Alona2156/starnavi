@@ -2,28 +2,40 @@ var path = require('path')
 var webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
-  entry: './src/main.js',
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'build.js'
+  mode: 'production',
+  entry: [
+    './src/main.js'
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          chunks: 'initial',
+          name: 'vendor',
+          test: /\/node_modules\//,
+          enforce: true
+        }
+      }
+    }
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.css$/,
         use: [
-          'vue-style-loader',
+           MiniCssExtractPlugin.loader,
           'css-loader'
         ],
       },
       {
         test: /\.scss$/,
         use: [
-          'vue-style-loader',
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
         ],
@@ -38,26 +50,7 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          extractCSS: true
-          /*loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            'scss': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader'
-            ],
-            'sass': [
-              'vue-style-loader',
-              'css-loader',
-              'sass-loader?indentedSyntax'
-            ]
-          }*/
-          // other vue-loader options go here
-        }
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
@@ -74,15 +67,14 @@ module.exports = {
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new HTMLWebpackPlugin({
       template: "index.html"
     }),
     new CleanWebpackPlugin(['dist']),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'common',
-        filename: 'commons.js'
-    }),
-    new ExtractTextPlugin("style.css")
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
   ],
   resolve: {
     alias: {
@@ -108,12 +100,6 @@ if (process.env.NODE_ENV === 'production') {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
       }
     }),
     new webpack.LoaderOptionsPlugin({

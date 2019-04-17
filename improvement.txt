@@ -52,6 +52,26 @@ module: {
   ]
 }
 
+5.1 Webpack 4 =>  MiniCssExtractPlugin
+
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+rules: [{
+    test: /\.css$/,
+    use: [
+       MiniCssExtractPlugin.loader,
+      'css-loader'
+    ],
+  }
+
+    plugins: [
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
+    })
+    ]
+
+Produces separate css file for every page, main and dynamically imported, separate style for vendor css
+
 6. SourceMaps
 Comment module.exports.devtool = "" in
 if (process.env.NODE_ENV === 'production')
@@ -137,14 +157,31 @@ Content reachable at https://localhost:3000
 Third-party content cannot be handed over http, only https
 To allow browser decide protocol => const baseUrl = "//demo4452328.mockable.io/properties";
 
-http1
+SPDY as alternative to http2 for express app
+npm i spdy --save
+var spdy = require('spdy');
+var fs = require("fs");
+const options = {
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+};
+var server = spdy.createServer(options, app);
+
+
+Http1
 24 requests
 1.4mb transferred
-finish 1.48s
 DOMContentLoaded 487ms
 Load 532 ms
 
 Http2
+24 requests
+1.4 mb transferred
+DOMContentLoaded 430ms
+Load 483 ms
 
+TCP connections
+http - 5 TCP connections = 1 per operation, if response by http2 = 1 per resource, resources can be mixed
+http2 - 3 TCP connections = 1 per resource
 
 Cache-control
