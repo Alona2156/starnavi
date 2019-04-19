@@ -205,4 +205,19 @@ TCP connections
 http - 5 TCP connections = 1 per operation, if response by http2 = 1 per resource, resources can be mixed
 http2 - 3 TCP connections = 1 per resource
 
-Cache-control
+11 Caching assets
+1. Cache-control in express:
+app.use(express.static(path.join(__dirname, 'dist'), {maxAge: 86400000}));
+
+2. Adding hashes to filenames
+output: {filename: '[name].[chunkhash].js'}
+new MiniCssExtractPlugin({
+  filename: '[name].[contenthash].css'
+}),
+new webpack.HashedModuleIdsPlugin()
+
+3. Giving names to dynamic import chunks:
+{path: '/custom',
+ component: () => import(/* webpackChunkName: "custom" */ './components/pages/layoutTwo.vue')}
+
+Chrome may not show caching if devtools open

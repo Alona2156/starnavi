@@ -5,14 +5,14 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
   mode: 'production',
-  entry: [
-    './src/main.js'
-  ],
+  entry: './src/main.js',
+  output: {filename: '[name].[chunkhash].js'},
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -23,7 +23,8 @@ module.exports = {
           enforce: true
         }
       }
-    }
+    },
+    runtimeChunk: "single"
   },
   module: {
     rules: [{
@@ -72,9 +73,15 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: "index.html"
     }),
+    new webpack.HashedModuleIdsPlugin(),
+    new PreloadWebpackPlugin(
+      {
+        rel: 'prefetch'
+      }
+    ),
     new CleanWebpackPlugin(['dist']),
     new MiniCssExtractPlugin({
-      filename: '[name].css'
+      filename: '[name].[contenthash].css'
     }),
     new OptimizeCSSPlugin()
   ],

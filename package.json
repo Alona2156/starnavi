@@ -17,6 +17,7 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "http-errors": "^1.7.1",
+    "preload-webpack-plugin": "^3.0.0-beta.3",
     "spdy": "^4.0.0",
     "vue": "^2.5.11",
     "vue-loader": "^15.7.0",
