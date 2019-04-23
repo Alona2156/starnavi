@@ -13,9 +13,9 @@ const routes = [
   {path: '/',
    component: layoutOne},
   {path: '/custom',
-   component: () => import(/* webpackPreload: true */  /* webpackChunkName: "custom" */ './components/pages/layoutTwo.vue')},
+   component: () => import(/* webpackChunkName: "custom" */ './components/pages/layoutTwo.vue')},
   {path: '/nested',
-   component: () => import(/* webpackPreload: true */  /* webpackChunkName: "nested"*/ './components/pages/layoutThree.vue')}
+   component: () => import(/* webpackChunkName: "nested"*/ './components/pages/layoutThree.vue')}
 ];
 
 const router = new VueRouter({

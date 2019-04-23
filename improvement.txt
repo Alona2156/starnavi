@@ -221,3 +221,22 @@ new webpack.HashedModuleIdsPlugin()
  component: () => import(/* webpackChunkName: "custom" */ './components/pages/layoutTwo.vue')}
 
 Chrome may not show caching if devtools open
+
+If resource is cached, client sends request to server, if hashes didn't change sever sends 304 to client,
+which means client can take assets from cache.
+
+12 Preload & prefetch directives
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+
+new PreloadWebpackPlugin(
+  {
+    rel: 'prefetch'
+  }
+)
+
+<link href="" rel="preload" as="style">
+
+Order of execution:
+1) Normal => css from <link> in <head>, <script> tags
+2) Preloaded => css from <link>, <link rel="preload"> from <head>, <script>
+3) Prefetch => css from <link> in <head>, <script> tags, <link rel="prefetch">
