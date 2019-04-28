@@ -1,12 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
 import {store} from './store.js';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
+import Vuetify, { VCarousel, VCarouselItem } from 'vuetify/lib/';
+import 'vuetify/src/stylus/app.styl';
 import VueRouter from 'vue-router';
 import layoutOne from './components/pages/layoutOne.vue';
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  components: {
+    VCarousel,
+    VCarouselItem
+  }
+});
 Vue.use(VueRouter);
 
 const routes = [

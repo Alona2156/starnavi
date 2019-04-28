@@ -40,7 +40,7 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader'
-        ],
+        ]
       },
       {
         test: /\.sass$/,
@@ -48,7 +48,15 @@ module.exports = {
           'vue-style-loader',
           'css-loader',
           'sass-loader?indentedSyntax'
-        ],
+        ]
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'stylus-loader'
+        ]
       },
       {
         test: /\.vue$/,
